@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Quotes from './quotes';
 import InspirationalQuote from './quote';
-import Loading from './loading';
 
 export type Quote = {
   id: number;
@@ -20,16 +19,11 @@ export const fetchQuotes = async (count: number) => {
 };
 
 const Application = () => {
-  const [count, setCount] = useState(10);
   const [quotes, setQuotes] = useState<Quote[]>([]);
 
   return (
     <main className="mx-auto w-full max-w-2xl py-16">
-      <Quotes
-        count={count}
-        onChange={(e) => setCount(e.target.valueAsNumber)}
-        onSubmit={() => fetchQuotes(count).then(setQuotes)}
-      >
+      <Quotes setQuotes={setQuotes}>
         {quotes.map((quote) => (
           <InspirationalQuote
             key={quote.id}
